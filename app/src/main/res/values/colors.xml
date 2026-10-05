@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cherry blossom palette. The Compose theme in :core:ui is the source of truth. -->
+    <color name="helium_blossom">#FECDBE</color>
+    <color name="helium_background">#12100F</color>
+    <color name="helium_surface">#1C1917</color>
+    <color name="helium_on_background">#F5F0EE</color>
+</resources>

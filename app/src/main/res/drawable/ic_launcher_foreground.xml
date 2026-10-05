@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cherry-blossom play mark: a soft petal ring around a play triangle. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:fillColor="#FECDBE"
+        android:pathData="M54,26c7.2,0 13,5.8 13,13s-5.8,13 -13,13 -13,-5.8 -13,-13 5.8,-13 13,-13z" />
+
+    <path
+        android:fillColor="#FECDBE"
+        android:fillAlpha="0.55"
+        android:pathData="M54,82c-7.2,0 -13,-5.8 -13,-13s5.8,-13 13,-13 13,5.8 13,13 -5.8,13 -13,13z" />
+
+    <path
+        android:fillColor="#12100F"
+        android:pathData="M50,40.5l16,9.5 -16,9.5z" />
+</vector>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Helium</string>
+    <string name="app_tagline">Edit video by telling it what you want</string>
+
+    <string name="projects_title">Projects</string>
+    <string name="projects_empty_title">No projects yet</string>
+    <string name="projects_empty_body">Create a project, import a video and describe the edit in your own words.</string>
+    <string name="new_project">New project</string>
+
+    <string name="import_title">Import video</string>
+    <string name="import_action">Choose video</string>
+    <string name="import_single">One video</string>
+    <string name="import_multiple">Multiple videos</string>
+
+    <string name="editor_prompt_hint">Tell AI how to edit this video…</string>
+    <string name="editor_undo">Undo</string>
+    <string name="editor_redo">Redo</string>
+    <string name="editor_export">Export</string>
+
+    <string name="export_title">Export</string>
+    <string name="export_start">Start export</string>
+    <string name="export_cancel">Cancel</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_model">AI model</string>
+
+    <string name="cd_play">Play</string>
+    <string name="cd_pause">Pause</string>
+    <string name="cd_timeline">Timeline</string>
+</resources>

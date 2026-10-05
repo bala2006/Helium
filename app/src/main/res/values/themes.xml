@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Compose owns all in-app styling; this theme only controls the window before
+      the first frame is drawn, so it must match the Compose dark surface colour
+      to avoid a white flash.
+    -->
+    <style name="Theme.Helium" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/helium_background</item>
+        <item name="android:colorBackground">@color/helium_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

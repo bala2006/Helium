@@ -1,0 +1,8 @@
+{
+  "//": "This repository is an Android/Kotlin project. There are no TypeScript sources; this file exists only so workspace typecheck tooling that expects a TypeScript project root resolves cleanly instead of erroring.",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "files": []
+}
