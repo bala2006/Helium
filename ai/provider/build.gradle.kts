@@ -17,6 +17,8 @@ kotlin {
 dependencies {
     api(project(":core:model"))
     api(project(":core:network"))
+    // The provider contract carries tool schemas, tool calls and evidence images.
+    api(project(":ai:tools"))
     api(libs.kotlinx.coroutines.core)
     api(libs.kotlinx.serialization.json)
 

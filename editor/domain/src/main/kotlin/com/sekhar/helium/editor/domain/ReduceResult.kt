@@ -6,15 +6,13 @@ import com.sekhar.helium.core.model.Timeline
 /**
  * Outcome of reducing a single [EditOperation].
  *
- * A failure is always recoverable: the caller keeps the previous timeline, so a
- * transaction can never leave the project half-edited.
+ * A failure carries no timeline at all — the caller keeps the timeline it
+ * already had, so a transaction can never leave the project half-edited.
  */
 sealed interface ReduceResult {
 
-    val timeline: Timeline
-
     data class Success(
-        override val timeline: Timeline,
+        val timeline: Timeline,
         val warnings: List<String> = emptyList(),
         val notes: List<String> = emptyList(),
     ) : ReduceResult
@@ -22,6 +20,5 @@ sealed interface ReduceResult {
     data class Failure(
         val operation: EditOperation,
         val errors: List<String>,
-        override val timeline: Timeline = Timeline(),
     ) : ReduceResult
 }

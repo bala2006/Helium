@@ -49,11 +49,21 @@ data class ExportSettings(
     /** True when the preset should follow whatever the source resolution is. */
     val isOriginal: Boolean get() = preset == ExportPreset.ORIGINAL
 
-    /** Effective output size given the source dimensions. */
+    /**
+     * Effective output size given the source dimensions.
+     *
+     * Precedence is explicit override, then the preset's own dimensions, then the
+     * source resolution ("Match original"). A preset must never fall through to
+     * the source size: `width`/`height` default to 0, so keying the preset branch
+     * off them silently turned a Reel preset into a landscape export.
+     */
     fun resolveSize(sourceWidth: Int, sourceHeight: Int): Pair<Int, Int> {
-        if (!isOriginal && width > 0 && height > 0) return width to height
-        // "Original" keeps the source size, but even dimensions are required by
-        // H.264/H.265 encoders.
+        val targetWidth = if (width > 0) width else preset.width
+        val targetHeight = if (height > 0) height else preset.height
+        if (targetWidth > 0 && targetHeight > 0) {
+            // Even dimensions are required by H.264/H.265 encoders.
+            return (targetWidth - targetWidth % 2) to (targetHeight - targetHeight % 2)
+        }
         val w = if (sourceWidth > 0) sourceWidth else 1080
         val h = if (sourceHeight > 0) sourceHeight else 1920
         return (w - w % 2) to (h - h % 2)

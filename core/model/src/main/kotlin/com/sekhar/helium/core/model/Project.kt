@@ -18,6 +18,21 @@ data class Project(
     val updatedAtEpochMs: Long,
     val aspectRatio: AspectRatio = AspectRatio.ORIGINAL,
     val sources: List<SourceMedia> = emptyList(),
+    /**
+     * The timeline as it looked before any edit was applied: one clip per source,
+     * laid end to end.
+     *
+     * [timeline] is always `replay(baseTimeline, appliedTransactions)`. Keeping the
+     * base means undo needs no inverse operations and the whole history stays
+     * verifiable from first principles.
+     */
+    val baseTimeline: Timeline = Timeline(),
+    /**
+     * The edit decision list currently in effect.
+     *
+     * Derived from [baseTimeline] and [history]; stored so the preview and export
+     * paths never have to replay.
+     */
     val timeline: Timeline = Timeline(),
     val history: EditHistory = EditHistory(),
     val exportSettings: ExportSettings = ExportSettings(),
@@ -30,7 +45,17 @@ data class Project(
 
     fun source(sourceId: SourceId): SourceMedia? = sources.firstOrNull { it.id == sourceId }
 
-    fun addSource(source: SourceMedia): Project = copy(sources = sources + source)
+    /** All sources that can be used by the timeline, in import order. */
+    val usableSources: List<SourceMedia> get() = sources.filter { it.isUsable }
+
+    /**
+     * Adds an imported source and rebuilds the base timeline so the new media is
+     * appended after the existing media.
+     */
+    fun withSource(source: SourceMedia, ids: com.sekhar.helium.core.common.IdGenerator): Project {
+        val newSources = sources + source
+        return copy(sources = newSources, baseTimeline = buildBaseTimeline(newSources, ids))
+    }
 
     /**
      * Removes a source and every timeline entry that referenced it.

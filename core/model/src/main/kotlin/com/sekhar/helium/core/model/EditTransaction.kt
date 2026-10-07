@@ -56,11 +56,19 @@ data class EditHistory(
     val undoneTransactions: List<EditTransaction>
         get() = transactions.subList(cursor.coerceIn(0, transactions.size), transactions.size)
 
-    val nextIndex: Long get() = transactions.size.toLong()
+    val nextIndex: Long get() = cursor.toLong()
 
-    /** Appends [transaction] and moves the cursor to the end. */
-    fun append(transaction: EditTransaction): EditHistory =
-        EditHistory(transactions + transaction, transactions.size + 1)
+    /**
+     * Appends [transaction] and moves the cursor to the end.
+     *
+     * Any undone transactions are discarded first: making a new edit after
+     * undoing is a new branch of history in every editor, and keeping the old
+     * redo stack would let a stale timeline reappear.
+     */
+    fun append(transaction: EditTransaction): EditHistory {
+        val kept = transactions.subList(0, cursor.coerceIn(0, transactions.size))
+        return EditHistory(kept + transaction, kept.size + 1)
+    }
 
     /** Moves the cursor back by [count]; returns the same history when impossible. */
     fun undo(count: Int = 1): EditHistory =

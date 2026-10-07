@@ -18,7 +18,7 @@ data class Clip(
     val sourceId: SourceId,
     /** Region of the source media that this clip plays. */
     val sourceRange: TimeRange,
-    val timelineStartMs: Long = 0L,
+    override val timelineStartMs: Long = 0L,
     /** Playback speed; `2.0` plays twice as fast and halves the duration. */
     val speed: Float = 1f,
     val volume: Float = 1f,
@@ -55,13 +55,17 @@ data class Clip(
         }
     }
 
-    /** Maps a source offset inside [sourceRange] to a clip-relative timeline offset. */
+    /**
+     * Maps an offset inside [sourceRange] to a clip-relative timeline offset.
+     *
+     * Offsets after an embedded freeze are pushed later by the hold duration,
+     * which is what keeps the timeline length consistent with the freeze.
+     */
     fun sourceOffsetToTimelineOffset(sourceOffsetMs: Long): Long {
         val clamped = sourceOffsetMs.coerceIn(0L, sourceDurationMs)
         val scaled = (clamped / speed).roundToLong()
-        val hold = freeze?.holdMs ?: 0L
-        val freezeAt = freeze?.let { (it.atSourceOffsetMs / speed).roundToLong() } ?: Long.MAX_VALUE
-        return if (clamped > (freeze?.atSourceOffsetMs ?: Long.MAX_VALUE)) scaled + hold else scaled.coerceAtMost(freezeAt)
+        val freeze = this.freeze ?: return scaled
+        return if (clamped > freeze.atSourceOffsetMs) scaled + freeze.holdMs else scaled
     }
 }
 
@@ -84,7 +88,7 @@ data class AudioClip(
     val id: ClipId,
     val sourceId: SourceId,
     val sourceRange: TimeRange,
-    val timelineStartMs: Long = 0L,
+    override val timelineStartMs: Long = 0L,
     val speed: Float = 1f,
     val volume: Float = 1f,
     val muted: Boolean = false,

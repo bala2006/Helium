@@ -6,6 +6,7 @@ plugins {
 android {
     namespace = "com.sekhar.helium"
     compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdkMinor = libs.versions.compileSdkMinor.get().toInt()
 
     defaultConfig {
         applicationId = "com.sekhar.helium"
@@ -76,6 +77,8 @@ dependencies {
     implementation(project(":media:indexer"))
 
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)

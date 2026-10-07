@@ -8,9 +8,14 @@ kotlin = "2.3.20"
 ksp = "2.3.12"
 
 # Android SDK levels.
+# API 37 ships as minor-versioned platforms (37.0/37.1/37.2), so the platform
+# package is `platforms;android-37.2` and the DSL needs compileSdkMinor. AndroidX
+# and OkHttp 5.x require compiling against API 37, so 36 is no longer enough.
 compileSdk = "37"
+compileSdkMinor = "2"
 targetSdk = "37"
 minSdk = "26"
+buildTools = "37.0.0"
 
 # AndroidX / Jetpack.
 composeBom = "2026.09.00"
@@ -50,7 +55,10 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+# Android library/app modules resolve no test framework from `kotlin-test` alone
+# under AGP 9's built-in Kotlin, so the JUnit 4 flavour is declared explicitly.
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 
 # --- AndroidX core -----------------------------------------------------------------
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }

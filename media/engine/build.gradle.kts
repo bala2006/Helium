@@ -5,6 +5,7 @@ plugins {
 android {
     namespace = "com.sekhar.helium.media.engine"
     compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdkMinor = libs.versions.compileSdkMinor.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -28,6 +29,10 @@ dependencies {
     implementation(libs.media3.muxer)
 
     testImplementation(libs.junit)
-    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnit()
 }
