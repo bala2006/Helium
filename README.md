@@ -21,9 +21,9 @@ reproducible.
 * **The timeline is a value, not a mutation target.** `timeline = replay(base,
   transactions)`, which is what makes undo free and export reproducible.
 
-Read [docs/ARCHITECTURE.md](ARCHITECTURE.md) before changing anything structural,
-[docs/AI_TOOLS.md](AI_TOOLS.md) before touching the tool catalog, and
-[docs/PRIVACY.md](PRIVACY.md) before touching evidence gathering.
+Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before changing anything structural,
+[docs/AI_TOOLS.md](docs/AI_TOOLS.md) before touching the tool catalog, and
+[docs/PRIVACY.md](docs/PRIVACY.md) before touching evidence gathering.
 
 ## Layout
 
