@@ -35,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           ANDROID_HOME="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
-          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -maxdepth 2 -name sdkmanager -type f | sort | tail -1)"
+          SDKMANAGER="$(find "$ANDROID_HOME" -maxdepth 4 -path '*cmdline-tools*' -name sdkmanager -type f | sort | tail -1)"
           test -x "$SDKMANAGER"
           echo "Using $SDKMANAGER"
           {
